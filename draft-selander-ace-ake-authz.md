@@ -79,7 +79,7 @@ In this document we consider the target interaction to be "enrolment", for examp
 
 This protocol is applicable in a wide variety of settings, and can be mapped to different authorization architectures.
 This document specifies a profile of the ACE framework {{I-D.ietf-ace-oauth-authz}}.
-Other settings such as EAP {{RFC3748}} are out of scope.
+This document does not deal with any mapping to an EAP setting.
 
 ## Terminology   {#terminology}
 
