@@ -5,13 +5,13 @@
 Network Working Group                                        G. Selander
 Internet-Draft                                               J. Mattsson
 Intended status: Informational                               Ericsson AB
-Expires: 10 September 2020                                    M. Vucinic
+Expires: 16 April 2021                                        M. Vucinic
                                                                    INRIA
                                                            M. Richardson
                                                 Sandelman Software Works
                                                          A. Schellenbaum
                                      Institute of Embedded Systems, ZHAW
-                                                            9 March 2020
+                                                         13 October 2020
 
 
        Lightweight Authorization for Authenticated Key Exchange.
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 September 2020.
+   This Internet-Draft will expire on 16 April 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 1]
+Selander, et al.          Expires 16 April 2021                 [Page 1]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -89,7 +89,7 @@ Table of Contents
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    8.  Informative References  . . . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 2]
+Selander, et al.          Expires 16 April 2021                 [Page 2]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    The protocol specified in this document optimizes the message count
@@ -165,9 +165,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 3]
+Selander, et al.          Expires 16 April 2021                 [Page 3]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
                       Voucher
@@ -221,9 +221,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 4]
+Selander, et al.          Expires 16 April 2021                 [Page 4]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    The domain authenticator may in principle use differents credentials
@@ -277,9 +277,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 5]
+Selander, et al.          Expires 16 April 2021                 [Page 5]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    *  The public authentication key of the domain authenticator, PK_V,
@@ -305,7 +305,7 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
    The content of the LAKE messages (see Section 3.4) is highlighted
    with brackets in the figure below (Figure 2) using the notation of
-   EDHOC [I-D.selander-lake-edhoc].  The content includes:
+   EDHOC [I-D.ietf-lake-edhoc].  The content includes:
 
    *  G_X: the x-coordinate of the ephemeral public Diffie-Hellman key
       of party U
@@ -333,9 +333,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 6]
+Selander, et al.          Expires 16 April 2021                 [Page 6]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    U                                    V                              W
@@ -389,9 +389,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 7]
+Selander, et al.          Expires 16 April 2021                 [Page 7]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    AD1 = (
@@ -445,9 +445,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 8]
+Selander, et al.          Expires 16 April 2021                 [Page 8]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 4.1.1.  Voucher
@@ -501,9 +501,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020               [Page 9]
+Selander, et al.          Expires 16 April 2021                 [Page 9]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    All parameters, except 'voucher-type', are as received in the voucher
@@ -557,16 +557,16 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020              [Page 10]
+Selander, et al.          Expires 16 April 2021                [Page 10]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 4.2.3.1.  Device processing
 
    The device sends message 3.  AD3 depends on the kind of enrollment
    the device is requesting.  It may e.g. be a CBOR encoded Certificate
-   Signing Request, see [I-D.raza-ace-cbor-certificates].
+   Signing Request, see [I-D.mattsson-cose-cbor-cert-compress].
 
 4.2.3.2.  Authenticator processing
 
@@ -613,9 +613,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020              [Page 11]
+Selander, et al.          Expires 16 April 2021                [Page 11]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    where
@@ -669,9 +669,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020              [Page 12]
+Selander, et al.          Expires 16 April 2021                [Page 12]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    an assertion to C that is cryptographically protected based on the
@@ -725,9 +725,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020              [Page 13]
+Selander, et al.          Expires 16 April 2021                [Page 13]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
        Header: POST (Code=0.02)
@@ -781,9 +781,9 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-Selander, et al.        Expires 10 September 2020              [Page 14]
+Selander, et al.          Expires 16 April 2021                [Page 14]
 
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
    TODO: Remote attestation
@@ -818,43 +818,50 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
               Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-33, 6 February 2020,
+              draft-ietf-ace-oauth-authz-35, 24 June 2020,
               <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
-              authz-33.txt>.
+              authz-35.txt>.
+
+   [I-D.ietf-lake-edhoc]
+              Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
+              Diffie-Hellman Over COSE (EDHOC)", Work in Progress,
+              Internet-Draft, draft-ietf-lake-edhoc-01, 2 August 2020,
+              <http://www.ietf.org/internet-drafts/draft-ietf-lake-
+              edhoc-01.txt>.
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 16 April 2021                [Page 15]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    [I-D.ietf-lake-reqs]
               Vucinic, M., Selander, G., Mattsson, J., and D. Garcia-
               Carillo, "Requirements for a Lightweight AKE for OSCORE",
-              Work in Progress, Internet-Draft, draft-ietf-lake-reqs-01,
-              19 February 2020, <http://www.ietf.org/internet-drafts/
-              draft-ietf-lake-reqs-01.txt>.
+              Work in Progress, Internet-Draft, draft-ietf-lake-reqs-04,
+              8 June 2020, <http://www.ietf.org/internet-drafts/draft-
+              ietf-lake-reqs-04.txt>.
 
    [I-D.irtf-cfrg-hpke]
-              Barnes, R. and K. Bhargavan, "Hybrid Public Key
-              Encryption", Work in Progress, Internet-Draft, draft-irtf-
-              cfrg-hpke-02, 4 November 2019, <http://www.ietf.org/
-              internet-drafts/draft-irtf-cfrg-hpke-02.txt>.
+              Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
+              Public Key Encryption", Work in Progress, Internet-Draft,
+              draft-irtf-cfrg-hpke-05, 30 July 2020,
+              <http://www.ietf.org/internet-drafts/draft-irtf-cfrg-hpke-
+              05.txt>.
 
-
-
-Selander, et al.        Expires 10 September 2020              [Page 15]
-
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
-
-
-   [I-D.raza-ace-cbor-certificates]
+   [I-D.mattsson-cose-cbor-cert-compress]
               Raza, S., Hoglund, J., Selander, G., Mattsson, J., and M.
               Furuhed, "CBOR Profile of X.509 Certificates", Work in
-              Progress, Internet-Draft, draft-raza-ace-cbor-
-              certificates-03, 20 December 2019, <http://www.ietf.org/
-              internet-drafts/draft-raza-ace-cbor-certificates-03.txt>.
-
-   [I-D.selander-lake-edhoc]
-              Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
-              Diffie-Hellman Over COSE (EDHOC)", Work in Progress,
-              Internet-Draft, draft-selander-lake-edhoc-00, 4 November
-              2019, <http://www.ietf.org/internet-drafts/draft-selander-
-              lake-edhoc-00.txt>.
+              Progress, Internet-Draft, draft-mattsson-cose-cbor-cert-
+              compress-01, 13 July 2020, <http://www.ietf.org/internet-
+              drafts/draft-mattsson-cose-cbor-cert-compress-01.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -883,19 +890,20 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
+
+
+
+Selander, et al.          Expires 16 April 2021                [Page 16]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
 Authors' Addresses
 
    Goeran Selander
    Ericsson AB
 
    Email: goran.selander@ericsson.com
-
-
-
-
-Selander, et al.        Expires 10 September 2020              [Page 16]
-
-Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
    John Preuss Mattsson
@@ -941,12 +949,4 @@ Internet-Draft     Lightweight Authorization for AKE.         March 2020
 
 
 
-
-
-
-
-
-
-
-
-Selander, et al.        Expires 10 September 2020              [Page 17]
+Selander, et al.          Expires 16 April 2021                [Page 17]
