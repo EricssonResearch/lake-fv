@@ -5,13 +5,13 @@
 Network Working Group                                        G. Selander
 Internet-Draft                                               J. Mattsson
 Intended status: Informational                               Ericsson AB
-Expires: 16 April 2021                                        M. Vucinic
+Expires: 17 April 2021                                        M. Vucinic
                                                                    INRIA
                                                            M. Richardson
                                                 Sandelman Software Works
                                                          A. Schellenbaum
                                      Institute of Embedded Systems, ZHAW
-                                                         13 October 2020
+                                                         14 October 2020
 
 
        Lightweight Authorization for Authenticated Key Exchange.
@@ -19,9 +19,9 @@ Expires: 16 April 2021                                        M. Vucinic
 
 Abstract
 
-   This document describes a procedure for augmenting an authenticated
-   Diffie-Hellman key exchange with third party assisted authorization
-   targeting constrained IoT deployments (RFC 7228).
+   This document describes a procedure for augmenting the authenticated
+   Diffie-Hellman key exchange EDHOC with third party assisted
+   authorization targeting constrained IoT deployments (RFC 7228).
 
 Note to Readers
 
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 April 2021.
+   This Internet-Draft will expire on 17 April 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 1]
+Selander, et al.          Expires 17 April 2021                 [Page 1]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -97,38 +97,39 @@ Table of Contents
    security protocols may be significant which motivates the
    specification of lightweight protocols that are optimizing, in
    particular, message overhead (see [I-D.ietf-lake-reqs]).  This
-   document describes a lightweight procedure for augmenting an
-   authenticated Diffie-Hellman key exchange with third party assisted
-   authorization.
+   document describes a procedure for augmenting the lightweight
+   authenticated Diffie-Hellman key exchange EDHOC [I-D.ietf-lake-edhoc]
+   with third party assisted authorization.
 
    The procedure involves a device, a domain authenticator and an
    authorization server.  The device and authenticator perform mutual
    authentication and authorization, assisted by the authorization
    server which provides relevant authorization information to the
-   device (a "voucher") and the authenticator.
+   device (a "voucher") and to the authenticator.
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 2]
+Selander, et al.          Expires 17 April 2021                 [Page 2]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
-   The protocol specified in this document optimizes the message count
-   by performing authorization and enrollment in parallel with
-   authentication, instead of in sequence which is common for network
-   access.  It further reuses protocol elements from the authentication
-   protocol leading to reduced message sizes on constrained links.
+   The protocol assumes that authentication between device and
+   authenticator is performed with EDHOC, and defines the integration of
+   a lightweight authorization procedure using the Auxiliary Data
+   defined in EDHOC.
 
-   The specification assumes a lightweight AKE protocol
-   [I-D.ietf-lake-reqs] between device and authenticator, and defines
-   the integration of a lightweight authorization procedure.  This
-   enables a secure target interaction in few message exchanges.  In
-   this document we consider the target interaction to be "enrollment",
-   for example certificate enrollment (such as [I-D.ietf-ace-coap-est])
-   or joining a network for the first time (e.g.
-   [I-D.ietf-6tisch-minimal-security]), but it can be applied to
-   authorize other target interactions.
+   In this document we consider the target interaction to be
+   "enrollment", for example certificate enrollment (such as
+   [I-D.selander-ace-coap-est-oscore]) or joining a network for the
+   first time (e.g.  [I-D.ietf-6tisch-minimal-security]), but it can be
+   applied to authorize other target interactions.
+
+   The protocol enables a low message count by performing authorization
+   and enrollment in parallel with authentication, instead of in
+   sequence which is common for network access.  It further reuses
+   protocol elements from EDHOC leading to reduced message sizes on
+   constrained links.
 
    This protocol is applicable to a wide variety of settings, and can be
    mapped to different authorization architectures.  This document
@@ -164,8 +165,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-
-Selander, et al.          Expires 16 April 2021                 [Page 3]
+Selander, et al.          Expires 17 April 2021                 [Page 3]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 4]
+Selander, et al.          Expires 17 April 2021                 [Page 4]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 5]
+Selander, et al.          Expires 17 April 2021                 [Page 5]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -333,7 +333,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 6]
+Selander, et al.          Expires 17 April 2021                 [Page 6]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 7]
+Selander, et al.          Expires 17 April 2021                 [Page 7]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 8]
+Selander, et al.          Expires 17 April 2021                 [Page 8]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                 [Page 9]
+Selander, et al.          Expires 17 April 2021                 [Page 9]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -557,7 +557,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 10]
+Selander, et al.          Expires 17 April 2021                [Page 10]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 11]
+Selander, et al.          Expires 17 April 2021                [Page 11]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 12]
+Selander, et al.          Expires 17 April 2021                [Page 12]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 13]
+Selander, et al.          Expires 17 April 2021                [Page 13]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 14]
+Selander, et al.          Expires 17 April 2021                [Page 14]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -806,13 +806,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               internet-drafts/draft-ietf-6tisch-minimal-security-
               15.txt>.
 
-   [I-D.ietf-ace-coap-est]
-              Stok, P., Kampanakis, P., Richardson, M., and S. Raza,
-              "EST over secure CoAP (EST-coaps)", Work in Progress,
-              Internet-Draft, draft-ietf-ace-coap-est-18, 6 January
-              2020, <http://www.ietf.org/internet-drafts/draft-ietf-ace-
-              coap-est-18.txt>.
-
    [I-D.ietf-ace-oauth-authz]
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
               H. Tschofenig, "Authentication and Authorization for
@@ -829,25 +822,25 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               <http://www.ietf.org/internet-drafts/draft-ietf-lake-
               edhoc-01.txt>.
 
-
-
-
-
-
-
-
-
-Selander, et al.          Expires 16 April 2021                [Page 15]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    [I-D.ietf-lake-reqs]
               Vucinic, M., Selander, G., Mattsson, J., and D. Garcia-
               Carillo, "Requirements for a Lightweight AKE for OSCORE",
               Work in Progress, Internet-Draft, draft-ietf-lake-reqs-04,
               8 June 2020, <http://www.ietf.org/internet-drafts/draft-
               ietf-lake-reqs-04.txt>.
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 17 April 2021                [Page 15]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    [I-D.irtf-cfrg-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
@@ -862,6 +855,13 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               Progress, Internet-Draft, draft-mattsson-cose-cbor-cert-
               compress-01, 13 July 2020, <http://www.ietf.org/internet-
               drafts/draft-mattsson-cose-cbor-cert-compress-01.txt>.
+
+   [I-D.selander-ace-coap-est-oscore]
+              Selander, G., Raza, S., Furuhed, M., Vucinic, M., and T.
+              Claeys, "Protecting EST Payloads with OSCORE", Work in
+              Progress, Internet-Draft, draft-selander-ace-coap-est-
+              oscore-03, 9 March 2020, <http://www.ietf.org/internet-
+              drafts/draft-selander-ace-coap-est-oscore-03.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -893,7 +893,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 16]
+Selander, et al.          Expires 17 April 2021                [Page 16]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Selander, et al.          Expires 16 April 2021                [Page 17]
+Selander, et al.          Expires 17 April 2021                [Page 17]
