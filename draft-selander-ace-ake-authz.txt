@@ -5,13 +5,13 @@
 Network Working Group                                        G. Selander
 Internet-Draft                                               J. Mattsson
 Intended status: Informational                               Ericsson AB
-Expires: 17 April 2021                                        M. Vucinic
+Expires: 19 April 2021                                        M. Vucinic
                                                                    INRIA
                                                            M. Richardson
                                                 Sandelman Software Works
                                                          A. Schellenbaum
                                      Institute of Embedded Systems, ZHAW
-                                                         14 October 2020
+                                                         16 October 2020
 
 
        Lightweight Authorization for Authenticated Key Exchange.
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 April 2021.
+   This Internet-Draft will expire on 19 April 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 1]
+Selander, et al.          Expires 19 April 2021                 [Page 1]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 2]
+Selander, et al.          Expires 19 April 2021                 [Page 2]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -152,26 +152,26 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    authorization of the (non-constrained) domain authenticator with the
    help of a voucher, and makes the enrollment request.  The domain
    authenticator authenticates the device and authorizes its enrollment.
-   Authentication between device and domain authenticator is made with a
-   lightweight authenticated Diffie-Hellman key exchange protocol (LAKE,
-   [I-D.ietf-lake-reqs]).  The procedure is assisted by a (non-
+   Authentication between device and domain authenticator is made with
+   the lightweight authenticated Diffie-Hellman key exchange protocol
+   EDHOC [I-D.ietf-lake-edhoc].  The procedure is assisted by a (non-
    constrained) authorization server located in a non-constrained
    network behind the domain authenticator providing information to the
-   device and to the domain authenticator.
+   device and to the domain authenticator as part of the protocol.
 
    The objective of this document is to specify such a protocol which is
-   lightweight over the constrained link and reuses elements of the
-   LAKE.  See illustration in Figure 1.
+   lightweight over the constrained link and reuses elements of EDHOC.
+   See illustration in Figure 1.
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 3]
+Selander, et al.          Expires 19 April 2021                 [Page 3]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
                       Voucher
-                 LAKE  Info
+                EDHOC  Info
    +----------+  |    |   +---------------+  Voucher  +---------------+
    |          |  |    |   |               |  Request  |               |
    |  Device  |--|----o-->|    Domain     |---------->| Authorization |
@@ -181,8 +181,9 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    +----------+      |    +---------------+           +---------------+
                      Voucher
 
-      Figure 1: Overview and example of message content.  Voucher Info
-             and Voucher are sent together with LAKE messages.
+        Figure 1: Overview of message flow.  Link between U anv V is
+       constrained but link between V and W is not.  Voucher Info and
+                 Voucher are sent in EDHOC Auxiliary Data.
 
 3.  Assumptions
 
@@ -211,6 +212,20 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    The domain authenticator has a private key and a corresponding public
    key PK_V used to authenticate to the device.
 
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 19 April 2021                 [Page 4]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
    The domain authenticator needs to be able to locate the authorization
    server of the device for which the LOC_W is expected to be
    sufficient.  The communication between domain authenticator and
@@ -218,13 +233,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    Authentication credentials and communication security used with the
    domain authenticator is out of scope, except for as specified below
    in this section.
-
-
-
-Selander, et al.          Expires 17 April 2021                 [Page 4]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
 
    The domain authenticator may in principle use differents credentials
    for authenticating to the authorization server and to the device, for
@@ -267,6 +275,13 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    LAKE requirements [I-D.ietf-lake-reqs].  Specifically we assume for
    the LAKE:
 
+
+
+Selander, et al.          Expires 19 April 2021                 [Page 5]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
    *  Three messages
 
    *  CBOR encoding
@@ -274,13 +289,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    *  The ephemeral public Diffie-Hellman key of the device, G_X, is
       sent in message 1.  G_X is also used as ephemeral key and nonce in
       an ECIES scheme between device and authorization server.
-
-
-
-Selander, et al.          Expires 17 April 2021                 [Page 5]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
 
    *  The public authentication key of the domain authenticator, PK_V,
       is sent in message 2.
@@ -325,15 +333,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-
-
-
-
-
-
-
-
-Selander, et al.          Expires 17 April 2021                 [Page 6]
+Selander, et al.          Expires 19 April 2021                 [Page 6]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 7]
+Selander, et al.          Expires 19 April 2021                 [Page 7]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 8]
+Selander, et al.          Expires 19 April 2021                 [Page 8]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                 [Page 9]
+Selander, et al.          Expires 19 April 2021                 [Page 9]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -557,7 +557,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 10]
+Selander, et al.          Expires 19 April 2021                [Page 10]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 11]
+Selander, et al.          Expires 19 April 2021                [Page 11]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 12]
+Selander, et al.          Expires 19 April 2021                [Page 12]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 13]
+Selander, et al.          Expires 19 April 2021                [Page 13]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 14]
+Selander, et al.          Expires 19 April 2021                [Page 14]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -837,7 +837,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 15]
+Selander, et al.          Expires 19 April 2021                [Page 15]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -893,7 +893,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 16]
+Selander, et al.          Expires 19 April 2021                [Page 16]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Selander, et al.          Expires 17 April 2021                [Page 17]
+Selander, et al.          Expires 19 April 2021                [Page 17]
