@@ -5,13 +5,13 @@
 Network Working Group                                        G. Selander
 Internet-Draft                                               J. Mattsson
 Intended status: Informational                               Ericsson AB
-Expires: 19 April 2021                                        M. Vucinic
+Expires: 21 April 2021                                        M. Vucinic
                                                                    INRIA
                                                            M. Richardson
                                                 Sandelman Software Works
                                                          A. Schellenbaum
                                      Institute of Embedded Systems, ZHAW
-                                                         16 October 2020
+                                                         18 October 2020
 
 
        Lightweight Authorization for Authenticated Key Exchange.
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 April 2021.
+   This Internet-Draft will expire on 21 April 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander, et al.          Expires 19 April 2021                 [Page 1]
+Selander, et al.          Expires 21 April 2021                 [Page 1]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -76,20 +76,19 @@ Table of Contents
      3.1.  Device  . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.2.  Domain Authenticator  . . . . . . . . . . . . . . . . . .   4
      3.3.  Authorization Server  . . . . . . . . . . . . . . . . . .   5
-     3.4.  Lightweight AKE . . . . . . . . . . . . . . . . . . . . .   5
-   4.  The Protocol  . . . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  The Protocol  . . . . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  Device <-> Authorization Server . . . . . . . . . . . . .   7
-     4.2.  Device <-> Authenticator  . . . . . . . . . . . . . . . .  10
+     4.2.  Device <-> Authenticator  . . . . . . . . . . . . . . . .   9
      4.3.  Authenticator <-> Authorization Server  . . . . . . . . .  11
-   5.  ACE Profile . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   5.  ACE Profile . . . . . . . . . . . . . . . . . . . . . . . . .  11
      5.1.  Protocol Overview . . . . . . . . . . . . . . . . . . . .  12
-     5.2.  AS Request Creation Hints . . . . . . . . . . . . . . . .  13
+     5.2.  AS Request Creation Hints . . . . . . . . . . . . . . . .  12
      5.3.  Client-to-AS Request  . . . . . . . . . . . . . . . . . .  13
-     5.4.  AS-to-Client Response . . . . . . . . . . . . . . . . . .  14
+     5.4.  AS-to-Client Response . . . . . . . . . . . . . . . . . .  13
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   8.  Informative References  . . . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
+   8.  Informative References  . . . . . . . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -109,7 +108,8 @@ Table of Contents
 
 
 
-Selander, et al.          Expires 19 April 2021                 [Page 2]
+
+Selander, et al.          Expires 21 April 2021                 [Page 2]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -165,7 +165,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 19 April 2021                 [Page 3]
+Selander, et al.          Expires 21 April 2021                 [Page 3]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -191,7 +191,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    The device is pre-provisioned with an identity ID_U and asymmetric
    key credentials: a private key, a public key (PK_U), and optionally a
-   public key certificate Cert(PK_U), issued by a trusted third party
+   public key certificate (Cert_PK_U), issued by a trusted third party
    such as e.g. the device manufacturer, used to authenticate to the
    domain authenticator.  ID_U may be a reference or pointer to the
    certificate.
@@ -205,7 +205,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  Location information about the authorization server (LOC_W), e.g.
       its domain name.  This information may be available in the device
-      certificate Cert(PK_U).
+      certificate Cert_PK_U.
 
 3.2.  Domain Authenticator
 
@@ -221,7 +221,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
 
-Selander, et al.          Expires 19 April 2021                 [Page 4]
+Selander, et al.          Expires 21 April 2021                 [Page 4]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
@@ -256,45 +256,15 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    decision for enrollment with the domain authenticator in the form of
    a voucher.  The authorization server provides information to the
    domain authenticator about the device, such as the the device's
-   certificate Cert(PK_U).
+   certificate Cert_PK_U.
 
    The authorization server needs to be available during the execution
    of the protocol.
 
-3.4.  Lightweight AKE
-
-   We assume a Diffie-Hellman key exchange protocol complying with the
-   LAKE requirements [I-D.ietf-lake-reqs].  Specifically we assume for
-   the LAKE:
-
-   *  Three messages
-
-   *  CBOR encoding
-
-   *  The ephemeral public Diffie-Hellman key of the device, G_X, is
-      sent in message 1.  G_X is also used as ephemeral key and nonce in
-      an ECIES scheme between device and authorization server.
-
-
-
-Selander, et al.          Expires 19 April 2021                 [Page 5]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
-   *  The public authentication key of the domain authenticator, PK_V,
-      is sent in message 2.
-
-   *  Support for Auxilliary Data AD1-3 in messages 1-3 as specified in
-      section 2.5 of [I-D.ietf-lake-reqs].
-
-   *  Cipher suite negotiation where the device can propose ECDH curves
-      restricted by its available public keys of the authorization
-      server.
-
 4.  The Protocol
 
-   Three security sessions are going on in parallel (see Figure 2):
+   Three security sessions are going on in parallel (as detailed in the
+   subsections):
 
    *  Between device (U) and (domain) authenticator (V),
 
@@ -303,66 +273,70 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    *  between device and authorization server mediated by the
       authenticator.
 
-   The content of the LAKE messages (see Section 3.4) is highlighted
-   with brackets in the figure below (Figure 2) using the notation of
-   EDHOC [I-D.ietf-lake-edhoc].  The content includes:
-
-   *  G_X: the x-coordinate of the ephemeral public Diffie-Hellman key
-      of party U
-
-   *  ID_CRED_V: data enabling the party U to obtain the credentials
-      containing the public authentication key of V
-
-   *  Sig(V;): a signature made with the private authentication key of V
-
-   *  Sig(U;): a signature made with the private authentication key of U
-
-   We study each security session in turn, starting with the last.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Selander, et al.          Expires 19 April 2021                 [Page 6]
+Selander, et al.          Expires 21 April 2021                 [Page 5]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
+   The most relevant message fields of EDHOC [I-D.ietf-lake-edhoc] in
+   this specification are shown within brackets { ... } (see Figure 2):
+
+   *  G_X: the x-coordinate of the ephemeral public Diffie-Hellman key
+      of party U
+
+   *  AD_1: Auxiliary Data of message_1
+
+   *  AD_2: Auxiliary Data of message_2
+
+   *  ID_CRED_R: data enabling the party U to obtain the credentials
+      containing the public authentication key of the responder V
+
+   *  ID_CRED_I: data enabling the party V to obtain the credentials
+      containing the public authentication key of the initiator U
+
+   *  Sig_or_MAC_2: a signature or MAC made by party V with use of the
+      private key of V
+
+   *  Sig_or_MAC_3: a signature or MAC made by party U with use of the
+      private key of U
+
    U                                    V                              W
-   |                (G_X)               |                              |
-   |  AD1=(LOC_W, CC, AEAD(K_1; ID_U))  |                              |
+   |                                    |                              |
+   |            {G_X, AD_1}             |                              |
    +----------------------------------->|                              |
-   |           LAKE message 1           |G_X, PK_V, CC, AEAD(K_1; ID_U)|
+   |          EDHOC message_1           |G_X, PK_V, CC, AEAD(K_1; ID_U)|
    |                                    +----------------------------->|
    |                                    |    Voucher Request (VREQ)    |
    |                                    |                              |
    |                                    |      CERT_PK_U, Voucher      |
    |                                    |<-----------------------------+
-   |        (ID_CRED_V, Sig(V;))        |    Voucher Response (VRES)   |
-   |             AD2=Voucher            |                              |
+   |                                    |    Voucher Response (VRES)   |
+   |  {ID_CRED_R, Sig_or_MAC_2, AD_2}   |                              |
    |<-----------------------------------+                              |
-   |           LAKE message 2           |                              |
+   |          EDHOC message_2           |                              |
    |                                    |                              |
-   |              (Sig(U;))             |                              |
+   |      {ID_CRED_I, Sig_or_MAC_3}     |                              |
    +----------------------------------->|                              |
-   |           LAKE message 3           |                              |
+   |          EDHOC message_3           |                              |
 
-   where Voucher = AEAD(K_2; V_TYPE, PK_V, G_X, ID_U)
+   where
+   AD_1 = (T0, LOC_W, CC, AEAD(K1; ID_U))
+   AD_2 = (T1, Voucher)
+   Voucher = AEAD(K_2; V_TYPE, PK_V, G_X, ID_U)
 
-         Figure 2: W-assisted authorization of AKE between U and V.
-        Relevant content from the LAKE protocol between U and V with
-         auxiliary data AD1 and AD2.  The Voucher Request/Response
-                         Protocol between V and W.
+      Figure 2: W-assisted authorization of AKE between U and V: EDHOC
+       between U and V, and Voucher Request/Response between V and W.
+
+
+
+Selander, et al.          Expires 21 April 2021                 [Page 6]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
 4.1.  Device <-> Authorization Server
 
@@ -385,14 +359,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    AD1 SHALL be the following CBOR sequence containing voucher
    information:
-
-
-
-
-Selander, et al.          Expires 19 April 2021                 [Page 7]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
 
    AD1 = (
        LOC_W:           tstr,
@@ -421,6 +387,13 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  'plaintext and 'external_aad' as below:
 
+
+
+Selander, et al.          Expires 21 April 2021                 [Page 7]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
    plaintext = (
        ID_U:            bstr
     )
@@ -442,14 +415,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
        Voucher:        bstr
    )
 
-
-
-
-Selander, et al.          Expires 19 April 2021                 [Page 8]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
 4.1.1.  Voucher
 
    The Voucher is essentially a Message Authentication Code binding the
@@ -470,6 +435,20 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    *  'external_aad' as below:
 
    external_aad = bstr .cbor external_aad_array
+
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 21 April 2021                 [Page 8]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    external_aad_array = [
        voucher_type:  int,
@@ -498,14 +477,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  CC and ID_U are defined in Section 4.1
 
-
-
-
-Selander, et al.          Expires 19 April 2021                 [Page 9]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    All parameters, except 'voucher-type', are as received in the voucher
    request (see Section 4.3).
 
@@ -520,6 +491,20 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    LAKE is omitted here.
 
 4.2.1.  Message 1
+
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 21 April 2021                 [Page 9]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
 4.2.1.1.  Device processing
 
@@ -554,14 +539,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 4.2.3.  Message 3
 
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 10]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
 4.2.3.1.  Device processing
 
    The device sends message 3.  AD3 depends on the kind of enrollment
@@ -573,9 +550,17 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    The authenticator MUST NOT verify the signature Sig(U;) (see
    Figure 2) in LAKE message 3 with the PK_U included in message 3.
    Instead, the signature MUST be verified with the public key included
-   in Cert(PK_U) (see Section 4.3.2) received from the authorization
+   in Cert_PK_U (see Section 4.3.2) received from the authorization
    server.  This way, the authenticator can make sure that message 3 is
    signed by the right entity trusted by the authorization server.
+
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 10]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
 4.3.  Authenticator <-> Authorization Server
 
@@ -601,7 +586,7 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 4.3.2.  Voucher Response
 
    The authorization server decrypts the identity of the device and
-   looks up its certificate, Cert(PK_U).  The authorization server sends
+   looks up its certificate, Cert_PK_U.  The authorization server sends
    the voucher response to the authenticator.  The Voucher_Response
    SHALL be a CBOR array as defined below:
 
@@ -610,20 +595,11 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
        Voucher:        bstr
    ]
 
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 11]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    where
 
-   *  CERT_PK_U is the device certificate of the public key PK_U,
-      Cert(PK_U), issued by a trusted third party, intended to be
-      verified by the authenticator.  The format of this certificate is
-      out of scope.
+   *  CERT_PK_U is the device certificate of the public key PK_U, issued
+      by a trusted third party, intended to be verified by the
+      authenticator.  The format of this certificate is out of scope.
 
    *  The voucher is defined in Section 4.1
 
@@ -634,6 +610,13 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    This section defines the profile of the ACE framework (see Appendix C
    of [I-D.ietf-ace-oauth-authz]).
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 11]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    U plays the role of the ACE Resource Server (RS).  V plays the role
    of the ACE Client (C).  W plays the role of the ACE Authorization
@@ -666,14 +649,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    LAKE message 1.  Before continuing the LAKE handshake, based on the
    AS Request Creation Hints information, C sends a POST request to the
    token endpoint at the AS requesting the access token.  The AS issues
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 12]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    an assertion to C that is cryptographically protected based on the
    secret shared between the AS and RS.  In this profile, the assertion
    is encoded as a Bearer Token.  C presents this token to RS in the
@@ -691,6 +666,14 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    of the RS.  The "cnonce" parameter MUST be implied to G^X, i.e. the
    ephemeral public key of the RS in the underlying LAKE exchange.  The
    "cnonce" parameter is not carried in the AS Request Creation Hints
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 12]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
    message for byte saving reasons.  AS Request Creation Hints MUST be
    carried within Auxiliary Data of the LAKE message 1 (AD1).
 
@@ -720,16 +703,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    An example exchange using CoAP and CBOR diagnostic notation is shown
    below:
 
-
-
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 13]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
        Header: POST (Code=0.02)
        Uri-Host: "as.example.com"
        Uri-Path: "token"
@@ -747,6 +720,15 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    of C.  The access token and the certificate are passed back to C, who
    uses it to complete the LAKE handshake.  This document extends the
    ACE framework by registering a new Access Information parameter:
+
+
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 13]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    rsp_ad: OPTIONAL.  Carries additional information from the AS to C
    associated with the access token.
@@ -778,14 +760,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    TODO: Use of G_X as ephemeral key between device and authenticator,
    and between device and authorization server
 
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 14]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    TODO: Remote attestation
 
 7.  IANA Considerations
@@ -797,6 +771,20 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    TODO: register rsp_ad ACE parameter
 
 8.  Informative References
+
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 14]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    [I-D.ietf-6tisch-minimal-security]
               Vucinic, M., Simon, J., Pister, K., and M. Richardson,
@@ -829,19 +817,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               8 June 2020, <http://www.ietf.org/internet-drafts/draft-
               ietf-lake-reqs-04.txt>.
 
-
-
-
-
-
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 15]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
    [I-D.irtf-cfrg-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
               Public Key Encryption", Work in Progress, Internet-Draft,
@@ -859,6 +834,14 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    [I-D.selander-ace-coap-est-oscore]
               Selander, G., Raza, S., Furuhed, M., Vucinic, M., and T.
               Claeys, "Protecting EST Payloads with OSCORE", Work in
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 15]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
+
               Progress, Internet-Draft, draft-selander-ace-coap-est-
               oscore-03, 9 March 2020, <http://www.ietf.org/internet-
               drafts/draft-selander-ace-coap-est-oscore-03.txt>.
@@ -890,14 +873,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
-
-
-
-Selander, et al.          Expires 19 April 2021                [Page 16]
-
-Internet-Draft     Lightweight Authorization for AKE.       October 2020
-
-
 Authors' Addresses
 
    Goeran Selander
@@ -914,6 +889,14 @@ Authors' Addresses
 
    Malisa Vucinic
    INRIA
+
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 16]
+
+Internet-Draft     Lightweight Authorization for AKE.       October 2020
+
 
    Email: malisa.vucinic@inria.fr
 
@@ -949,4 +932,21 @@ Authors' Addresses
 
 
 
-Selander, et al.          Expires 19 April 2021                [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Selander, et al.          Expires 21 April 2021                [Page 17]
