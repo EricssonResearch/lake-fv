@@ -81,7 +81,7 @@ Table of Contents
      4.2.  Device <-> Authenticator  . . . . . . . . . . . . . . . .   9
      4.3.  Authenticator <-> Authorization Server  . . . . . . . . .  11
    5.  ACE Profile . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     5.1.  Protocol Overview . . . . . . . . . . . . . . . . . . . .  12
+     5.1.  Protocol Overview . . . . . . . . . . . . . . . . . . . .  13
      5.2.  AS Request Creation Hints . . . . . . . . . . . . . . . .  13
      5.3.  Client-to-AS Request  . . . . . . . . . . . . . . . . . .  14
      5.4.  AS-to-Client Response . . . . . . . . . . . . . . . . . .  14
@@ -424,14 +424,14 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  T1 is the Auxiliary Data Type (TBD in relevant IANA registry)
 
-   and Voucher is defined in Section 4.1.1.
+   and 'Voucher' is defined in Section 4.1.1.
 
 4.1.1.  Voucher
 
-   The Voucher is an assertion by the authorization server to the device
+   The voucher is an assertion by the authorization server to the device
    that the authorization server has performed the relevant
    verifications and that the device is authorized to continue the
-   protocol with the authenticator.  The Voucher consists essentially of
+   protocol with the authenticator.  The voucher consists essentially of
    a message authentication code which binds the identity of the
    authenticator to message_1 of EDHOC.
 
@@ -543,17 +543,17 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 4.2.2.2.  Device processing
 
    In addition to normal EDHOC verifications, the device MUST verify the
-   Voucher by calculating the same message authentication code as when
-   it was generated (see Section 4.1.1) and compare with the what was
+   voucher by calculating the same message authentication code as when
+   it was generated (see Section 4.1.1) and compare with what was
    received in message_2.
 
-   The input in this calculation includes: * The ephemeral key G_X, sent
-   in message_1. * The identity ID_U, sent in message_1. * The public
-   key of the authenticator, PK_V, received in message_2.
+   The input in this calculation includes:
 
-   If the Voucher does not verify, the device MUST discontinue the
-   protocol.
+   *  The ephemeral key G_X, sent in message_1.
 
+   *  The identity ID_U, sent in message_1.
+
+   *  The public key of the authenticator PK_V, received in message_2.
 
 
 
@@ -561,6 +561,9 @@ Selander, et al.          Expires 21 April 2021                [Page 10]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   If the voucher does not verify, the device MUST discontinue the
+   protocol.
 
 4.2.3.  Message 3
 
@@ -573,7 +576,11 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    authenticator before sending message_2 received a certificate of PK_U
    from the authorization server (see Section 4.3), ID_CRED_I SHALL be a
    COSE header_map of type 'kid' with the empty byte string as value:
-   ~~~~~~~~~~~ ID_CRED_I = { 4 : h'' } ~~~~~~~~~~~
+
+   ID_CRED_I =
+   {
+     4 : h''
+   }
 
    AD_3 MAY contain an enrolment request, see
    [I-D.mattsson-cose-cbor-cert-compress], or other request which the
@@ -603,13 +610,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    protecting the Voucher Request/Response Protocol (see protocol
    between V and W in Figure 2).
 
-4.3.1.  Voucher Request
-
-   The authenticator sends the voucher request to the authorization
-   server.  The Voucher_Request SHALL be a CBOR array as defined below:
-
-
-
 
 
 
@@ -617,6 +617,11 @@ Selander, et al.          Expires 21 April 2021                [Page 11]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+4.3.1.  Voucher Request
+
+   The authenticator sends the voucher request to the authorization
+   server.  The Voucher_Request SHALL be a CBOR array as defined below:
 
    Voucher_Request = [
        PK_V:            bstr,
@@ -659,11 +664,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    of the ACE Client (C).  W plays the role of the ACE Authorization
    Server (AS).
 
-   C and RS use the Auxiliary Data in the LAKE protocol to communicate.
-   C and RS use the LAKE protocol to protect their communication.  LAKE
-   also provides mutual authentication of C and RS, assisted by the AS.
-
-5.1.  Protocol Overview
 
 
 
@@ -673,6 +673,12 @@ Selander, et al.          Expires 21 April 2021                [Page 12]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   C and RS use the Auxiliary Data in the LAKE protocol to communicate.
+   C and RS use the LAKE protocol to protect their communication.  LAKE
+   also provides mutual authentication of C and RS, assisted by the AS.
+
+5.1.  Protocol Overview
 
           RS                                C                     AS
           |          LAKE Message 1         |                     |
@@ -717,18 +723,18 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    An example AD1 value in CBOR diagnostic notation is shown below:
 
-   AD1:
-   {
-       "AS" : "coaps://as.example.com/token",
-       "audience": << h'73',h'737570657273...' >>
-   }
-
 
 
 Selander, et al.          Expires 21 April 2021                [Page 13]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   AD1:
+   {
+       "AS" : "coaps://as.example.com/token",
+       "audience": << h'73',h'737570657273...' >>
+   }
 
 5.3.  Client-to-AS Request
 
@@ -772,12 +778,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    When responding to C, the AS MUST set the "ace_profile" parameter to
    "lake".  The AS MUST set the "token_type" parameter to "Bearer".  The
    access token MUST be formatted as specified in Section 4.1.1.  The AS
-   MUST set the "rsp_ad" parameter to the certificate of RS.  To be able
-   to do so, AS first needs to decrypt the audience value, and based on
-   it retrieve the corresponding RS certificate.
-
-   An example AS response to C is shown below:
-
 
 
 
@@ -785,6 +785,12 @@ Selander, et al.          Expires 21 April 2021                [Page 14]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   MUST set the "rsp_ad" parameter to the certificate of RS.  To be able
+   to do so, AS first needs to decrypt the audience value, and based on
+   it retrieve the corresponding RS certificate.
+
+   An example AS response to C is shown below:
 
        2.01 Created
        Content-Format: application/ace+cbor
@@ -828,12 +834,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
-              Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-35, 24 June 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
-              authz-35.txt>.
-
-
 
 
 
@@ -841,6 +841,11 @@ Selander, et al.          Expires 21 April 2021                [Page 15]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+              Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
+              draft-ietf-ace-oauth-authz-35, 24 June 2020,
+              <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
+              authz-35.txt>.
 
    [I-D.ietf-lake-edhoc]
               Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
@@ -884,11 +889,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
               oscore-03, 9 March 2020, <http://www.ietf.org/internet-
               drafts/draft-selander-ace-coap-est-oscore-03.txt>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
 
 
 
@@ -897,6 +897,11 @@ Selander, et al.          Expires 21 April 2021                [Page 16]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
@@ -940,11 +945,6 @@ Authors' Addresses
    Email: malisa.vucinic@inria.fr
 
 
-   Michael Richardson
-   Sandelman Software Works
-
-   Email: mcr+ietf@sandelman.ca
-
 
 
 
@@ -954,16 +954,16 @@ Selander, et al.          Expires 21 April 2021                [Page 17]
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
 
+   Michael Richardson
+   Sandelman Software Works
+
+   Email: mcr+ietf@sandelman.ca
+
+
    Aurelio Schellenbaum
    Institute of Embedded Systems, ZHAW
 
    Email: aureliorubendario.schellenbaum@zhaw.ch
-
-
-
-
-
-
 
 
 
