@@ -344,12 +344,12 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    out via the authenticator protected between the endpoints (protocol
    between U and W in Figure 2) using an ECIES hybrid encryption scheme
    (see [I-D.irtf-cfrg-hpke]): The device uses the private key
-   corresponding to its ephemeral DH key G_X generated for LAKE message
-   1 (see Section 4.2) together with the static public DH key of the
-   authorization server G_W to generate a shared secret G_XW.  The
+   corresponding to its ephemeral DH key G_X generated for EDHOC
+   message_1 (see Section 4.2) together with the static public DH key of
+   the authorization server G_W to generate a shared secret G_XW.  The
    shared secret is used to derive AEAD encryption keys to protect data
-   between device and authorization server.  The data is carried in AD1
-   and AD2 (between device and authenticator) and in Voucher Request/
+   between device and authorization server.  The data is carried in AD_1
+   and AD_2 (between device and authenticator) and in Voucher Request/
    Response (between authenticator and authorization server).
 
    TODO: Reference relevant ECIES scheme in [I-D.irtf-cfrg-hpke].
@@ -357,16 +357,20 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    TODO: Define derivation of encryption keys (K_1, K_2) and nonces
    (N_1, N_2) for the both directions
 
-   AD1 SHALL be the following CBOR sequence containing voucher
-   information:
+   AD_1 SHALL be the following CBOR sequence:
 
-   AD1 = (
+   AD_1 = (
+       T0:              int,
        LOC_W:           tstr,
        CC:              bstr,
        CIPHERTEXT_RQ:   bstr
    )
 
    where
+
+   *  T0 is the Auxiliary Data Type (TBD in relevant IANA registry)
+
+   and the rest is Voucher Info:
 
    *  LOC_W is location information about the authorization server
 
@@ -383,16 +387,16 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  the nonce N_1
 
-   *  'protected' is a byte string of size 0
-
-   *  'plaintext and 'external_aad' as below:
-
 
 
 Selander, et al.          Expires 21 April 2021                 [Page 7]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   *  'protected' is a byte string of size 0
+
+   *  'plaintext and 'external_aad' as below:
 
    plaintext = (
        ID_U:            bstr
@@ -409,11 +413,18 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  CC is defined above.
 
-   AD2 SHALL be the Voucher, defined in the next section.
+   AD_2 SHALL be the following CBOR sequence:
 
-   AD2 = (
+   AD_2 = (
+       T1:             int,
        Voucher:        bstr
    )
+
+   where
+
+   *  T1 is the Auxiliary Data Type (TBD in relevant IANA registry)
+
+   and Voucher is defined in Section 4.1.1.
 
 4.1.1.  Voucher
 
@@ -432,23 +443,16 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
    *  'plaintext' is empty (plaintext = nil)
 
-   *  'external_aad' as below:
-
-   external_aad = bstr .cbor external_aad_array
-
-
-
-
-
-
-
-
 
 
 Selander, et al.          Expires 21 April 2021                 [Page 8]
 
 Internet-Draft     Lightweight Authorization for AKE.       October 2020
 
+
+   *  'external_aad' as below:
+
+   external_aad = bstr .cbor external_aad_array
 
    external_aad_array = [
        voucher_type:  int,
@@ -491,10 +495,6 @@ Internet-Draft     Lightweight Authorization for AKE.       October 2020
    LAKE is omitted here.
 
 4.2.1.  Message 1
-
-
-
-
 
 
 
